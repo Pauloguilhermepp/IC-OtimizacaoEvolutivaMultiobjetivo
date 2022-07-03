@@ -2,25 +2,13 @@
 
 import time
 import numpy as np
-from data_set import *
+import pandas as pd
 from AG.algoritmo_genetico import *
 
 # Definindo algumas variáveis globais:
 pesos = [1, -1] # Pesos da função para se maximizar
 returns = [] # Array para salvar retorno das ações
 cov_matrix_annual = [] # Matriz da covariância anual
-
-# Montando opções do portfólio:
-'''
-assets = ['AAPL', 'MSFT', 'GOOG', 'GOOGL', 
-    'AMZN', 'TSLA', 'FB', 'NVDA', 
-    'QCOM', 'INTC', 'NFLX', 'PYPL',
-    'AMD', 'HON', 'SHOP', 'SBUX',
-    'SNAP', 'F', 'SQ', 'SPOT', 
-    'TWTR', 'CTRA', 'PINS']
-'''
-
-assets = ['FB', 'AMZN', 'AAPL', 'NFLX', 'GOOG']
 
 # Definindo a função fitness:
 def fitness_func(solution):
@@ -56,7 +44,7 @@ def show_ans(solution, solution_fitness):
 
 
 # Definindo atributos do algoritmo genético:
-def genetic_algorithm():
+def genetic_algorithm(num_stocks):
     # Definindo parâmetros do AG:
     fitness_function = fitness_func # Função fitness
 
@@ -64,7 +52,7 @@ def genetic_algorithm():
 
     pop_size = 40 # Número de elementos da população
     
-    num_genes = len(assets) # Número de variáveis
+    num_genes = num_stocks # Número de variáveis
 
     gene_space = {'low': 0, 'high': 1} # Limites do valor das soluções
 
@@ -107,8 +95,8 @@ def main():
     global returns, cov_matrix_annual
 
     # Acessando dados:
-    path = "Data/DataBase1.pkl"
-    # save_data(path, assets, '2015-01-01', '2020-03-16')
+    num_stocks = 10
+    path = "Data/DataBase{ns}.pkl".format(ns = num_stocks)
     df = pd.read_pickle(path)
     
     # Calculando matrizes de retorno e covariância:
@@ -125,7 +113,7 @@ def main():
     # Execução do algoritmo em loop:
     for exe in np.arange(num_exe):
         # Criando instância do AG:
-        ga_instance = genetic_algorithm()
+        ga_instance = genetic_algorithm(num_stocks)
 
         # Seed da simulação:
         # ga_instance.random_seed(exe)
