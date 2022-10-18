@@ -6,7 +6,7 @@ import pandas as pd
 from AG.algoritmo_genetico import *
 
 # Definindo algumas variáveis globais:
-pesos = [1, -1] # Pesos da função para se maximizar
+pesos = [0.5, -0.5] # Pesos da função para se maximizar
 returns = [] # Array para salvar retorno das ações
 cov_matrix_annual = [] # Matriz da covariância anual
 
@@ -48,7 +48,7 @@ def genetic_algorithm(num_stocks):
     # Definindo parâmetros do AG:
     fitness_function = fitness_func # Função fitness
 
-    num_generations = 50 # Número de gerações
+    num_generations = 100 # Número de gerações
 
     pop_size = 40 # Número de elementos da população
     
@@ -95,7 +95,7 @@ def main():
     global returns, cov_matrix_annual
 
     # Acessando dados:
-    num_stocks = 10
+    num_stocks = 5
     path = "Data/DataBase{ns}.pkl".format(ns = num_stocks)
     df = pd.read_pickle(path)
     
@@ -104,7 +104,7 @@ def main():
     cov_matrix_annual = returns.cov() * 252
 
     # Número de execuções do algoritmo:
-    num_exe = 10
+    num_exe = 20
     fitness_values = []
 
     # Iniciando a contagem do tempo:

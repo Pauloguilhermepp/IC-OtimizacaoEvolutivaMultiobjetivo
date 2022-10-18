@@ -40,7 +40,7 @@ def show_graph(df):
 
 
 if __name__ == "__main__":
-    path = "Data/DataBase1.pkl"
+    path = "Data/DataBase5.pkl"
     assets = ['FB', 'AMZN', 'AAPL', 'NFLX', 'GOOG']
     '''
     assets = ['AAPL', 'MSFT', 'GOOG', 'GOOGL', 

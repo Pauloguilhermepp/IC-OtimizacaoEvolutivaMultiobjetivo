@@ -50,13 +50,13 @@ def volatility_func(solution):
 def genetic_algorithm(problem):
     algorithm = NSGA2(pop_size=200)
 
-    res = minimize(problem,
-                algorithm,
-                ('n_gen', 50),
-                seed=1,
+    res = minimize(problem=problem,
+                algorithm=algorithm,
+                termination=('n_gen', 100),
+                seed=5,
                 verbose=False)
-    
-    return res    
+
+    return res
 
 # Mostrando dados obtidos pelo algoritmo genético:
 def show_graph(res):
@@ -66,11 +66,13 @@ def show_graph(res):
     for i in range(0, len(res.F)):
         returns.append(-res.F[i][0])
         var.append(res.F[i][1])
+    
+    print(res.F)
 
     plt.scatter(var, returns, facecolor="none", edgecolor="red", color="black", alpha=0.7)
-    plt.xlabel("Variância")
-    plt.ylabel("Retorno")
-    plt.title("Gráfico das soluções dominantes de retorno e variância")
+    plt.xlabel("Variance")
+    plt.ylabel("Return")
+    plt.title("Graph of dominant solutions of return and variance")
     plt.grid()
     plt.show()
 

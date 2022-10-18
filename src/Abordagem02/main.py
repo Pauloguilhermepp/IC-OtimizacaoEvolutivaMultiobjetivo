@@ -27,7 +27,7 @@ def f2(solution):
 # Definindo a função fitness:
 def fitness_func(solution):
     fitness = [f1(solution), f2(solution)]
-
+    # fitness = [f2(solution), f1(solution)]
     return fitness
 
 
@@ -65,7 +65,7 @@ def genetic_algorithm(num_stocks):
 
     verbose = False # Não mostrar dados relativos a resposta
 
-    plot_graph = False # Não mostrar o gráfico
+    plot_graph = True # Não mostrar o gráfico
 
     mutation_type = "uniform" # Tipo de mutação que os genes vão ter
 
@@ -93,7 +93,7 @@ def main():
     global returns, cov_matrix_annual
 
     # Acessando dados:
-    num_stocks = 10
+    num_stocks = 5
     path = "Data/DataBase{ns}.pkl".format(ns = num_stocks)
     df = pd.read_pickle(path)
 
@@ -102,7 +102,7 @@ def main():
     cov_matrix_annual = returns.cov() * 252
 
     # Número de execuções do algoritmo:
-    num_exe = 5
+    num_exe = 1
     fitness_values = []
 
     # Iniciando a contagem do tempo:
@@ -110,7 +110,7 @@ def main():
 
     # Execução do algoritmo em loop:
     for exe in np.arange(num_exe):
-        print("Execução número " + str(exe))
+        # print("Execução número " + str(exe))
         # Criando instância do AG:
         ga_instance = genetic_algorithm(num_stocks)
 
@@ -124,7 +124,7 @@ def main():
         fitness_values.append(ga_instance.best_ans.fitness)
 
         # Mostrando detalhes da execução:
-        # show_ans(ga_instance.best_ans.array, ga_instance.best_ans.fitness)
+        show_ans(ga_instance.best_ans.array, ga_instance.best_ans.fitness)
 
     # Parando a contagem do tempo:
     end_time = time.time()
